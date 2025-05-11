@@ -1,6 +1,6 @@
 ﻿namespace IE1
 {
-    partial class Form1
+    partial class frmPrincipal
     {
         /// <summary>
         ///  Required designer variable.
@@ -35,7 +35,7 @@
             txtApellido = new TextBox();
             txtNombre = new TextBox();
             txtDNI = new TextBox();
-            comboBox1 = new ComboBox();
+            cmbEspecialidad = new ComboBox();
             label5 = new Label();
             label6 = new Label();
             label7 = new Label();
@@ -43,11 +43,13 @@
             lstPediatria = new ListBox();
             lstGuardia = new ListBox();
             groupBox1 = new GroupBox();
-            cmdLlamar = new Button();
+            btnLlamar = new Button();
             optGuardia = new RadioButton();
             optPediatria = new RadioButton();
             optClinica = new RadioButton();
-            cmdInsertar = new Button();
+            btnInsertar = new Button();
+            btnModificar = new Button();
+            btnEliminar = new Button();
             groupBox1.SuspendLayout();
             SuspendLayout();
             // 
@@ -108,19 +110,20 @@
             txtDNI.Size = new Size(179, 29);
             txtDNI.TabIndex = 6;
             // 
-            // comboBox1
+            // cmbEspecialidad
             // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Items.AddRange(new object[] { "Clínica", "Pediatría", "Guardia" });
-            comboBox1.Location = new Point(684, 42);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(211, 29);
-            comboBox1.TabIndex = 7;
+            cmbEspecialidad.FormattingEnabled = true;
+            cmbEspecialidad.ImeMode = ImeMode.Katakana;
+            cmbEspecialidad.Items.AddRange(new object[] { "Clínica", "Pediatría", "Guardia" });
+            cmbEspecialidad.Location = new Point(684, 42);
+            cmbEspecialidad.Name = "cmbEspecialidad";
+            cmbEspecialidad.Size = new Size(211, 29);
+            cmbEspecialidad.TabIndex = 7;
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(28, 129);
+            label5.Location = new Point(28, 145);
             label5.Name = "label5";
             label5.Size = new Size(106, 21);
             label5.TabIndex = 8;
@@ -129,7 +132,7 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(325, 129);
+            label6.Location = new Point(325, 145);
             label6.Name = "label6";
             label6.Size = new Size(112, 21);
             label6.TabIndex = 9;
@@ -138,7 +141,7 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(620, 129);
+            label7.Location = new Point(620, 145);
             label7.Name = "label7";
             label7.Size = new Size(115, 21);
             label7.TabIndex = 10;
@@ -148,7 +151,7 @@
             // 
             lstClinica.FormattingEnabled = true;
             lstClinica.ItemHeight = 21;
-            lstClinica.Location = new Point(28, 153);
+            lstClinica.Location = new Point(28, 169);
             lstClinica.Name = "lstClinica";
             lstClinica.Size = new Size(275, 319);
             lstClinica.TabIndex = 11;
@@ -157,7 +160,7 @@
             // 
             lstPediatria.FormattingEnabled = true;
             lstPediatria.ItemHeight = 21;
-            lstPediatria.Location = new Point(325, 153);
+            lstPediatria.Location = new Point(325, 169);
             lstPediatria.Name = "lstPediatria";
             lstPediatria.Size = new Size(275, 319);
             lstPediatria.TabIndex = 12;
@@ -166,34 +169,35 @@
             // 
             lstGuardia.FormattingEnabled = true;
             lstGuardia.ItemHeight = 21;
-            lstGuardia.Location = new Point(620, 153);
+            lstGuardia.Location = new Point(620, 169);
             lstGuardia.Name = "lstGuardia";
             lstGuardia.Size = new Size(275, 319);
             lstGuardia.TabIndex = 13;
             // 
             // groupBox1
             // 
-            groupBox1.Controls.Add(cmdLlamar);
+            groupBox1.Controls.Add(btnLlamar);
             groupBox1.Controls.Add(optGuardia);
             groupBox1.Controls.Add(optPediatria);
             groupBox1.Controls.Add(optClinica);
-            groupBox1.Location = new Point(31, 491);
+            groupBox1.Location = new Point(31, 507);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(864, 110);
             groupBox1.TabIndex = 14;
             groupBox1.TabStop = false;
             groupBox1.Text = "Llamar a consultorio";
             // 
-            // cmdLlamar
+            // btnLlamar
             // 
-            cmdLlamar.BackColor = Color.FromArgb(128, 255, 128);
-            cmdLlamar.Font = new Font("Segoe UI", 20F, FontStyle.Bold, GraphicsUnit.Point);
-            cmdLlamar.Location = new Point(589, 32);
-            cmdLlamar.Name = "cmdLlamar";
-            cmdLlamar.Size = new Size(250, 52);
-            cmdLlamar.TabIndex = 3;
-            cmdLlamar.Text = "L L A M A R";
-            cmdLlamar.UseVisualStyleBackColor = false;
+            btnLlamar.BackColor = Color.LimeGreen;
+            btnLlamar.Font = new Font("Segoe UI", 20F, FontStyle.Bold, GraphicsUnit.Point);
+            btnLlamar.Location = new Point(589, 32);
+            btnLlamar.Name = "btnLlamar";
+            btnLlamar.Size = new Size(250, 52);
+            btnLlamar.TabIndex = 3;
+            btnLlamar.Text = "L L A M A R";
+            btnLlamar.UseVisualStyleBackColor = false;
+            btnLlamar.Click += btnLlamar_Click;
             // 
             // optGuardia
             // 
@@ -232,24 +236,49 @@
             optClinica.Text = "Clínica";
             optClinica.UseVisualStyleBackColor = true;
             // 
-            // cmdInsertar
+            // btnInsertar
             // 
-            cmdInsertar.BackColor = Color.FromArgb(128, 255, 128);
-            cmdInsertar.Font = new Font("Segoe UI", 14F, FontStyle.Bold, GraphicsUnit.Point);
-            cmdInsertar.Location = new Point(684, 77);
-            cmdInsertar.Name = "cmdInsertar";
-            cmdInsertar.Size = new Size(211, 37);
-            cmdInsertar.TabIndex = 15;
-            cmdInsertar.Text = "I N S E R T A R";
-            cmdInsertar.UseVisualStyleBackColor = false;
+            btnInsertar.BackColor = Color.LimeGreen;
+            btnInsertar.Font = new Font("Segoe UI", 14F, FontStyle.Bold, GraphicsUnit.Point);
+            btnInsertar.Location = new Point(684, 81);
+            btnInsertar.Name = "btnInsertar";
+            btnInsertar.Size = new Size(211, 37);
+            btnInsertar.TabIndex = 15;
+            btnInsertar.Text = "I N S E R T A R";
+            btnInsertar.UseVisualStyleBackColor = false;
+            btnInsertar.Click += btnInsertar_Click;
             // 
-            // Form1
+            // btnModificar
+            // 
+            btnModificar.BackColor = Color.White;
+            btnModificar.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            btnModificar.Location = new Point(535, 81);
+            btnModificar.Name = "btnModificar";
+            btnModificar.Size = new Size(132, 37);
+            btnModificar.TabIndex = 16;
+            btnModificar.Text = "MODIFICAR";
+            btnModificar.UseVisualStyleBackColor = false;
+            // 
+            // btnEliminar
+            // 
+            btnEliminar.BackColor = Color.White;
+            btnEliminar.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
+            btnEliminar.Location = new Point(388, 82);
+            btnEliminar.Name = "btnEliminar";
+            btnEliminar.Size = new Size(132, 37);
+            btnEliminar.TabIndex = 17;
+            btnEliminar.Text = "ELIMINAR";
+            btnEliminar.UseVisualStyleBackColor = false;
+            // 
+            // frmPrincipal
             // 
             AutoScaleDimensions = new SizeF(9F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(192, 255, 192);
+            BackColor = Color.Teal;
             ClientSize = new Size(926, 629);
-            Controls.Add(cmdInsertar);
+            Controls.Add(btnEliminar);
+            Controls.Add(btnModificar);
+            Controls.Add(btnInsertar);
             Controls.Add(groupBox1);
             Controls.Add(lstGuardia);
             Controls.Add(lstPediatria);
@@ -257,7 +286,7 @@
             Controls.Add(label7);
             Controls.Add(label6);
             Controls.Add(label5);
-            Controls.Add(comboBox1);
+            Controls.Add(cmbEspecialidad);
             Controls.Add(txtDNI);
             Controls.Add(txtNombre);
             Controls.Add(txtApellido);
@@ -267,8 +296,8 @@
             Controls.Add(label1);
             Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             Margin = new Padding(4);
-            Name = "Form1";
-            Text = "Carga de Clientes";
+            Name = "frmPrincipal";
+            Text = "Carga de Pacientes";
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             ResumeLayout(false);
@@ -284,7 +313,7 @@
         private TextBox txtApellido;
         private TextBox txtNombre;
         private TextBox txtDNI;
-        private ComboBox comboBox1;
+        private ComboBox cmbEspecialidad;
         private Label label5;
         private Label label6;
         private Label label7;
@@ -292,10 +321,12 @@
         private ListBox lstPediatria;
         private ListBox lstGuardia;
         private GroupBox groupBox1;
-        private Button cmdLlamar;
+        private Button btnLlamar;
         private RadioButton optGuardia;
         private RadioButton optPediatria;
         private RadioButton optClinica;
-        private Button cmdInsertar;
+        private Button btnInsertar;
+        private Button btnModificar;
+        private Button btnEliminar;
     }
 }

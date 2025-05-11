@@ -32,7 +32,7 @@
             label5 = new Label();
             lblDNI = new Label();
             label2 = new Label();
-            lblNombre = new Label();
+            lblPaciente = new Label();
             label1 = new Label();
             lstProximos = new ListBox();
             label3 = new Label();
@@ -76,15 +76,15 @@
             label2.TabIndex = 18;
             label2.Text = "DNI:";
             // 
-            // lblNombre
+            // lblPaciente
             // 
-            lblNombre.Font = new Font("Segoe UI", 35F, FontStyle.Bold, GraphicsUnit.Point);
-            lblNombre.Location = new Point(18, 55);
-            lblNombre.Name = "lblNombre";
-            lblNombre.Size = new Size(679, 62);
-            lblNombre.TabIndex = 17;
-            lblNombre.Text = "APELLIDO, Nombre";
-            lblNombre.TextAlign = ContentAlignment.MiddleCenter;
+            lblPaciente.Font = new Font("Segoe UI", 35F, FontStyle.Bold, GraphicsUnit.Point);
+            lblPaciente.Location = new Point(18, 55);
+            lblPaciente.Name = "lblPaciente";
+            lblPaciente.Size = new Size(679, 62);
+            lblPaciente.TabIndex = 17;
+            lblPaciente.Text = "APELLIDO, Nombre";
+            lblPaciente.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label1
             // 
@@ -125,7 +125,7 @@
             Controls.Add(label5);
             Controls.Add(lblDNI);
             Controls.Add(label2);
-            Controls.Add(lblNombre);
+            Controls.Add(lblPaciente);
             Controls.Add(label1);
             Font = new Font("Segoe UI", 25F, FontStyle.Regular, GraphicsUnit.Point);
             Margin = new Padding(8, 9, 8, 9);
@@ -141,7 +141,7 @@
         private Label label5;
         private Label lblDNI;
         private Label label2;
-        private Label lblNombre;
+        private Label lblPaciente;
         private Label label1;
         private ListBox lstProximos;
         private Label label3;

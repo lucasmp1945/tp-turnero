@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             label1 = new Label();
-            lblNombre = new Label();
+            lblPaciente = new Label();
             label2 = new Label();
             lblDNI = new Label();
             label3 = new Label();
@@ -47,15 +47,15 @@
             label1.TabIndex = 0;
             label1.Text = "PACIENTE";
             // 
-            // lblNombre
+            // lblPaciente
             // 
-            lblNombre.Font = new Font("Segoe UI", 35F, FontStyle.Bold, GraphicsUnit.Point);
-            lblNombre.Location = new Point(12, 64);
-            lblNombre.Name = "lblNombre";
-            lblNombre.Size = new Size(679, 62);
-            lblNombre.TabIndex = 1;
-            lblNombre.Text = "APELLIDO, Nombre";
-            lblNombre.TextAlign = ContentAlignment.MiddleCenter;
+            lblPaciente.Font = new Font("Segoe UI", 35F, FontStyle.Bold, GraphicsUnit.Point);
+            lblPaciente.Location = new Point(12, 64);
+            lblPaciente.Name = "lblPaciente";
+            lblPaciente.Size = new Size(679, 62);
+            lblPaciente.TabIndex = 1;
+            lblPaciente.Text = "APELLIDO, Nombre";
+            lblPaciente.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label2
             // 
@@ -117,7 +117,7 @@
             // 
             AutoScaleDimensions = new SizeF(18F, 45F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(192, 255, 255);
+            BackColor = Color.BurlyWood;
             ClientSize = new Size(672, 586);
             Controls.Add(lstProximos);
             Controls.Add(lblConsultorio);
@@ -125,7 +125,7 @@
             Controls.Add(label3);
             Controls.Add(lblDNI);
             Controls.Add(label2);
-            Controls.Add(lblNombre);
+            Controls.Add(lblPaciente);
             Controls.Add(label1);
             Font = new Font("Segoe UI", 25F, FontStyle.Regular, GraphicsUnit.Point);
             Margin = new Padding(8, 9, 8, 9);
@@ -138,7 +138,7 @@
         #endregion
 
         private Label label1;
-        private Label lblNombre;
+        private Label lblPaciente;
         private Label label2;
         private Label lblDNI;
         private Label label3;

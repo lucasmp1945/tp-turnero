@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -8,46 +9,49 @@ namespace IE1
 {
     internal class Cola
     {
-        public Nodo inicio;
-        public Nodo fin;
+        public Paciente inicio;
+        public Paciente fin;
 
-        public void Insertar(Nodo paciente)
+        public void Insertar(string dni, string nombre, string apellido)
         {
+            Paciente nuevo = new Paciente(dni, nombre, apellido);
+
             if (inicio == null)
             {
-                inicio = paciente;
-                fin = paciente;
+                inicio = nuevo;
+                fin = nuevo;
             }
             else
             {
-                fin.siguiente = paciente;
-                fin = paciente;
+                fin.siguiente = nuevo;
+                fin = nuevo;
             }
         }
         public void Listar(ListBox lstEspera)
         {
             lstEspera.Items.Clear();
-            if (inicio == null) lstEspera.Items.Add("No hay pacientes");
+
+            if (inicio == null)
+            {
+                lstEspera.Items.Add("No hay pacientes");
+            }
             else
             {
-                Nodo aux = inicio;
+                Paciente aux = inicio;
                 while (aux != null)
                 {
-                    //lstEspera.Items.Add();
+                    lstEspera.Items.Add($"{aux.dni} - {aux.nombre} {aux.apellido}");
                     aux = aux.siguiente;
                 }
             }
         }
+
         public void Eliminar()
         {
-            if (inicio != null)
-            {
-                Nodo aux = inicio;
-                inicio = aux.siguiente;
-                aux = null;
-
-                if (inicio == null) fin = null;
-            }
+            Paciente aux = inicio;
+            inicio = inicio.siguiente;
+            aux = null;
         }
+
     }
 }

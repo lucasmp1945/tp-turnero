@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34221.43
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IE1", "IE1\IE1.csproj", "{5411AEA7-E8BE-4FFB-ADDA-A41F638CBEA6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "centroMedico", "IE1\centroMedico.csproj", "{5411AEA7-E8BE-4FFB-ADDA-A41F638CBEA6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

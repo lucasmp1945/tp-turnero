@@ -17,6 +17,12 @@ namespace IE1
             InitializeComponent();
         }
 
+        public void llamaPaciente(Paciente llamado)
+        {
+            lblPaciente.Text = llamado.apellido.ToUpper() + ", " + llamado.nombre;
+            lblDNI.Text = llamado.dni;
+        }
+
 
         public void mostrarConsultario()
         {
