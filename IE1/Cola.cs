@@ -46,6 +46,22 @@ namespace IE1
             }
         }
 
+        public List<string> devolverRegistros()
+        {
+            List<string> lista = new List<string>();
+            Paciente aux = inicio;
+
+            while (aux != null)
+            {
+                string registro = $"{aux.dni} - {aux.nombre} {aux.apellido}";
+                lista.Add(registro);
+                aux = aux.siguiente;
+            }
+
+            return lista;
+        }
+
+
         public void Eliminar()
         {
             Paciente aux = inicio;

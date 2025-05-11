@@ -19,7 +19,8 @@ namespace IE1
             InitializeComponent();
             visorClinica.Show();
             visorGuardia.Show();
-            visorPediatria.Show();  
+            visorPediatria.Show();
+            restaurar();
 
         }
 
@@ -94,7 +95,7 @@ namespace IE1
                     visorClinica.llamaPaciente(esperaClinicaMedica.inicio);
                     esperaClinicaMedica.Eliminar();
                     esperaClinicaMedica.Listar(lstClinica);
-
+                    backup();
                 }
                 else
                 {
@@ -108,6 +109,8 @@ namespace IE1
                     visorPediatria.llamaPaciente(esperaPediatria.inicio);
                     esperaPediatria.Eliminar();
                     esperaPediatria.Listar(lstPediatria);
+                    backup();
+
                 }
                 else
                 {
@@ -121,6 +124,7 @@ namespace IE1
                     visorGuardia.llamaPaciente(esperaGuardia.inicio);
                     esperaGuardia.Eliminar();
                     esperaGuardia.Listar(lstGuardia);
+                    backup();
 
                 }
                 else
@@ -133,6 +137,87 @@ namespace IE1
                 MessageBox.Show("Seleccione una especialidad.");
             }
         }
+
+
+        public void backup()
+        {
+            List<string> listaClinica = esperaClinicaMedica.devolverRegistros();
+            using (StreamWriter escribir = File.CreateText("backup_clinica.txt"))
+            {
+                foreach (string registro in listaClinica)
+                {
+                    escribir.WriteLine(registro);
+                }
+            }
+
+            List<string> listaPediatria = esperaPediatria.devolverRegistros();
+            using (StreamWriter escribir = File.CreateText("backup_pediatria.txt"))
+            {
+                foreach (string registro in listaPediatria)
+                {
+                    escribir.WriteLine(registro);
+                }
+            }
+
+            List<string> listaGuardia = esperaGuardia.devolverRegistros();
+            using (StreamWriter escribir = File.CreateText("backup_guardia.txt"))
+            {
+                foreach (string registro in listaGuardia)
+                {
+                    escribir.WriteLine(registro);
+                }
+            }
+        }
+
+        public void restaurar()
+        {
+            if (File.Exists("backup_clinica.txt"))
+            {
+                using (StreamReader leer = File.OpenText("backup_clinica.txt"))
+                {
+                    string registro = leer.ReadLine();
+                    while (registro != null)
+                    {
+                        string[] campos = registro.Split(',');
+                        esperaClinicaMedica.Insertar(campos[0], campos[1], campos[2]);
+                        registro = leer.ReadLine();
+                    }
+                }
+                esperaClinicaMedica.Listar(lstClinica);
+            }
+
+            if (File.Exists("backup_pediatria.txt"))
+            {
+                using (StreamReader leer = File.OpenText("backup_pediatria.txt"))
+                {
+                    string registro = leer.ReadLine();
+                    while (registro != null)
+                    {
+                        string[] campos = registro.Split(',');
+                        esperaPediatria.Insertar(campos[0], campos[1], campos[2]);
+                        registro = leer.ReadLine();
+                    }
+                }
+                esperaPediatria.Listar(lstPediatria);
+            }
+
+            if (File.Exists("backup_guardia.txt"))
+            {
+                using (StreamReader leer = File.OpenText("backup_guardia.txt"))
+                {
+                    string registro = leer.ReadLine();
+                    while (registro != null)
+                    {
+                        string[] campos = registro.Split(',');
+                        esperaGuardia.Insertar(campos[0], campos[1], campos[2]);
+                        registro = leer.ReadLine();
+                    }
+                }
+                esperaGuardia.Listar(lstGuardia);
+            }
+        }
+
+
 
     }
 }

@@ -12,6 +12,9 @@ namespace IE1
 {
     public partial class frmPediatría : Form
     {
+
+        Cola esperaPediatria = new Cola();
+
         public frmPediatría()
         {
             InitializeComponent();
@@ -22,6 +25,31 @@ namespace IE1
             lblPaciente.Text = llamado.apellido.ToUpper() + ", " + llamado.nombre;
             lblDNI.Text = llamado.dni;
         }
+
+        public void mostrarProximos(List<string> listaPacientes)
+        {
+            lstProximos.Items.Clear();
+
+            if (listaPacientes == null)
+            {
+                lstProximos.Items.Add("No hay pacientes");
+            }
+            else
+            {
+                Paciente aux = null;
+                while (aux != null)
+                {
+                    lstProximos.Items.Add($"{aux.dni} - {aux.nombre} {aux.apellido}");
+                    aux = aux.siguiente;
+                }
+            }
+
+            for (int i = 1; i < listaPacientes.Count; i++)
+            {
+                lstProximos.Items.Add(listaPacientes[i]);
+            }
+        }
+
 
         public void mostrarConsultario()
         {
