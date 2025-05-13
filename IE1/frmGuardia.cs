@@ -23,6 +23,22 @@ namespace IE1
             lblDNI.Text = llamado.dni;
         }
 
+        public void mostrarProximos(List<string> lista)
+        {
+
+            lstProximos.Items.Clear();
+
+            if (lista.Count == 0)
+            {
+                lstProximos.Items.Add("No hay más pacientes.");
+                return;
+            }
+
+            foreach (string item in lista)
+            {
+                lstProximos.Items.Add(item);
+            }
+        }
 
         public void mostrarConsultario()
         {

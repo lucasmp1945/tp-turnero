@@ -28,7 +28,6 @@ namespace IE1
 
         public void mostrarProximos(List<string> lista)
         {
-            MessageBox.Show("fun");
 
             lstProximos.Items.Clear();
 

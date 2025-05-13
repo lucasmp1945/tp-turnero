@@ -29,5 +29,22 @@ namespace IE1
             lblConsultorio.Text = "CLI" + rnd.Next(1, 5).ToString("000#");
         }
 
+        public void mostrarProximos(List<string> lista)
+        {
+            lstProximos.Items.Clear();
+
+            if (lista.Count == 0)
+            {
+                lstProximos.Items.Add("No hay más pacientes.");
+                return;
+            }
+
+            foreach (string item in lista)
+            {
+                lstProximos.Items.Add(item);
+            }
+        }
+
+
     }
 }

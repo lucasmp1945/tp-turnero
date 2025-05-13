@@ -95,12 +95,13 @@ namespace IE1
             {
                 if (esperaClinicaMedica.inicio != null)
                 {
+                    backup();
                     visorClinica.llamaPaciente(esperaClinicaMedica.inicio);
                     esperaClinicaMedica.Eliminar();
                     esperaClinicaMedica.Listar(lstClinica);
+                    List<string> lista = esperaClinicaMedica.devolverRegistros();
+                    visorClinica.mostrarProximos(lista);
 
-
-                    backup();
                 }
                 else
                 {
@@ -111,13 +112,12 @@ namespace IE1
             {
                 if (esperaPediatria.inicio != null)
                 {
+                    backup();
                     visorPediatria.llamaPaciente(esperaPediatria.inicio);
                     esperaPediatria.Eliminar();
                     esperaPediatria.Listar(lstPediatria);
-                    backup();
-                    List<string> lista = esperaPediatria.devolverRegistros(); // obtiene el resto
-                    visorPediatria.mostrarProximos(lista); // se los pasa al visor
-
+                    List<string> lista = esperaPediatria.devolverRegistros(); 
+                    visorPediatria.mostrarProximos(lista); 
                 }
                 else
                 {
@@ -128,10 +128,12 @@ namespace IE1
             {
                 if (esperaGuardia.inicio != null)
                 {
+                    backup();
                     visorGuardia.llamaPaciente(esperaGuardia.inicio);
                     esperaGuardia.Eliminar();
                     esperaGuardia.Listar(lstGuardia);
-                    backup();
+                    List<string> lista = esperaGuardia.devolverRegistros();
+                    visorGuardia.mostrarProximos(lista);
 
                 }
                 else
