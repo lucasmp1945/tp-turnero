@@ -31,30 +31,38 @@ namespace IE1
         {
             lstEspera.Items.Clear();
 
-            if (inicio == null)
+            bool hayPacientes = false;
+            Paciente aux = inicio;
+
+            while (aux != null)
+            {
+                if (aux.estado != "Eliminado")
+                {
+                    lstEspera.Items.Add($"{aux.dni} - {aux.nombre} {aux.apellido}");
+                    hayPacientes = true;
+                }
+                aux = aux.siguiente;
+            }
+
+            if (!hayPacientes)
             {
                 lstEspera.Items.Add("No hay pacientes");
             }
-            else
-            {
-                Paciente aux = inicio;
-                while (aux != null)
-                {
-                    lstEspera.Items.Add($"{aux.dni} - {aux.nombre} {aux.apellido}");
-                    aux = aux.siguiente;
-                }
-            }
         }
 
-        public List<string> devolverRegistros()
+
+        public List<string> devolverRegistros(bool incluirEliminados = false)
         {
             List<string> lista = new List<string>();
             Paciente aux = inicio;
 
             while (aux != null)
             {
-                string registro = aux.dni + "," + aux.nombre + "," + aux.apellido;
-                lista.Add(registro);
+                if (incluirEliminados || aux.estado != "Eliminado")
+                {
+                    string registro = aux.dni + "," + aux.nombre + "," + aux.apellido + "," + aux.estado;
+                    lista.Add(registro);
+                }
                 aux = aux.siguiente;
             }
 
@@ -67,6 +75,20 @@ namespace IE1
             Paciente aux = inicio;
             inicio = inicio.siguiente;
             aux = null;
+        }
+
+        public void InsertarExistente(Paciente p)
+        {
+            if (inicio == null)
+            {
+                inicio = p;
+                fin = p;
+            }
+            else
+            {
+                fin.siguiente = p;
+                fin = p;
+            }
         }
 
     }

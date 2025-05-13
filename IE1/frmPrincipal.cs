@@ -1,4 +1,5 @@
 using System.Drawing;
+using System.Windows.Forms;
 
 namespace IE1
 {
@@ -12,6 +13,8 @@ namespace IE1
         frmClinica visorClinica = new frmClinica();
         frmGuardia visorGuardia = new frmGuardia();
         frmPediatría visorPediatria = new frmPediatría();
+
+        private Paciente pacienteSeleccionado;
 
 
         public frmPrincipal()
@@ -71,7 +74,7 @@ namespace IE1
         {
             return new Paciente(txtDNI.Text, txtNombre.Text, txtApellido.Text)
             {
-                vigente = true
+                estado = "En espera"
             };
         }
 
@@ -116,8 +119,8 @@ namespace IE1
                     visorPediatria.llamaPaciente(esperaPediatria.inicio);
                     esperaPediatria.Eliminar();
                     esperaPediatria.Listar(lstPediatria);
-                    List<string> lista = esperaPediatria.devolverRegistros(); 
-                    visorPediatria.mostrarProximos(lista); 
+                    List<string> lista = esperaPediatria.devolverRegistros();
+                    visorPediatria.mostrarProximos(lista);
                 }
                 else
                 {
@@ -150,7 +153,7 @@ namespace IE1
 
         public void backup()
         {
-            List<string> listaClinica = esperaClinicaMedica.devolverRegistros();
+            List<string> listaClinica = esperaClinicaMedica.devolverRegistros(false);
             using (StreamWriter escribir = File.CreateText("backup_clinica.txt"))
             {
                 foreach (string registro in listaClinica)
@@ -159,7 +162,7 @@ namespace IE1
                 }
             }
 
-            List<string> listaPediatria = esperaPediatria.devolverRegistros();
+            List<string> listaPediatria = esperaPediatria.devolverRegistros(false);
             using (StreamWriter escribir = File.CreateText("backup_pediatria.txt"))
             {
                 foreach (string registro in listaPediatria)
@@ -168,7 +171,7 @@ namespace IE1
                 }
             }
 
-            List<string> listaGuardia = esperaGuardia.devolverRegistros();
+            List<string> listaGuardia = esperaGuardia.devolverRegistros(false);
             using (StreamWriter escribir = File.CreateText("backup_guardia.txt"))
             {
                 foreach (string registro in listaGuardia)
@@ -178,55 +181,145 @@ namespace IE1
             }
         }
 
+
         public void restaurar()
         {
-            if (File.Exists("backup_clinica.txt"))
+            restaurarDesdeArchivo("backup_clinica.txt", esperaClinicaMedica, lstClinica);
+            restaurarDesdeArchivo("backup_pediatria.txt", esperaPediatria, lstPediatria);
+            restaurarDesdeArchivo("backup_guardia.txt", esperaGuardia, lstGuardia);
+        }
+
+        private void restaurarDesdeArchivo(string archivo, Cola cola, ListBox lista)
+        {
+            if (!File.Exists(archivo)) return;
+
+            using (StreamReader leer = File.OpenText(archivo))
             {
-                using (StreamReader leer = File.OpenText("backup_clinica.txt"))
+                string registro = leer.ReadLine();
+                while (registro != null)
                 {
-                    string registro = leer.ReadLine();
-                    while (registro != null)
+                    string[] campos = registro.Split(',');
+
+                    if (campos.Length >= 4)
                     {
-                        string[] campos = registro.Split(',');
-                        esperaClinicaMedica.Insertar(campos[0], campos[1], campos[2]);
-                        registro = leer.ReadLine();
+                        string dni = campos[0].Trim();
+                        string nombre = campos[1].Trim();
+                        string apellido = campos[2].Trim();
+                        string estado = campos[3].Trim();
+
+                        if (estado != "Eliminado")
+                        {
+                            Paciente p = new Paciente(dni, nombre, apellido);
+                            p.estado = estado;
+                            cola.InsertarExistente(p);
+                        }
                     }
+
+                    registro = leer.ReadLine();
                 }
+            }
+
+            cola.Listar(lista);
+        }
+
+
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            if (pacienteSeleccionado != null)
+            {
+                pacienteSeleccionado.estado = "Eliminado";
                 esperaClinicaMedica.Listar(lstClinica);
-            }
-
-            if (File.Exists("backup_pediatria.txt"))
-            {
-                using (StreamReader leer = File.OpenText("backup_pediatria.txt"))
-                {
-                    string registro = leer.ReadLine();
-                    while (registro != null)
-                    {
-                        string[] campos = registro.Split(',');
-                        esperaPediatria.Insertar(campos[0], campos[1], campos[2]);
-                        registro = leer.ReadLine();
-                    }
-                }
                 esperaPediatria.Listar(lstPediatria);
-            }
-
-            if (File.Exists("backup_guardia.txt"))
-            {
-                using (StreamReader leer = File.OpenText("backup_guardia.txt"))
-                {
-                    string registro = leer.ReadLine();
-                    while (registro != null)
-                    {
-                        string[] campos = registro.Split(',');
-                        esperaGuardia.Insertar(campos[0], campos[1], campos[2]);
-                        registro = leer.ReadLine();
-                    }
-                }
                 esperaGuardia.Listar(lstGuardia);
+                MessageBox.Show("Paciente marcado como eliminado.");
+                backup();
+                limpiar();
+            }
+            else
+            {
+                MessageBox.Show("Seleccione un paciente con doble clic.");
             }
         }
 
 
+        private void limpiar()
+        {
+            txtDNI.Clear();
+            txtNombre.Clear();
+            txtApellido.Clear();
+            cmbEspecialidad.SelectedIndex = -1;
+            pacienteSeleccionado = null;
+        }
+
+        private void lstClinica_DoubleClick(object sender, EventArgs e)
+        {
+            if (lstClinica.SelectedItem == null) return;
+
+            string itemSeleccionado = lstClinica.SelectedItem.ToString();
+            string dniSeleccionado = itemSeleccionado.Split('-')[0].Trim();
+
+            Paciente aux = esperaClinicaMedica.inicio;
+            while (aux != null)
+            {
+                if (aux.dni == dniSeleccionado)
+                {
+                    pacienteSeleccionado = aux;
+                    txtDNI.Text = aux.dni;
+                    txtNombre.Text = aux.nombre;
+                    txtApellido.Text = aux.apellido;
+                    cmbEspecialidad.SelectedItem = "Clínica";
+                    break;
+                }
+                aux = aux.siguiente;
+            }
+        }
+
+        private void lstPediatria_DoubleClick(object sender, EventArgs e)
+        {
+            if (lstPediatria.SelectedItem == null) return;
+
+            string itemSeleccionado = lstPediatria.SelectedItem.ToString();
+            string dniSeleccionado = itemSeleccionado.Split('-')[0].Trim();
+
+            Paciente aux = esperaPediatria.inicio;
+            while (aux != null)
+            {
+                if (aux.dni == dniSeleccionado)
+                {
+                    pacienteSeleccionado = aux;
+                    txtDNI.Text = aux.dni;
+                    txtNombre.Text = aux.nombre;
+                    txtApellido.Text = aux.apellido;
+                    cmbEspecialidad.SelectedItem = "Pediatría";
+                    break;
+                }
+                aux = aux.siguiente;
+            }
+        }
+
+        private void lstGuardia_DoubleClick(object sender, EventArgs e)
+        {
+            if (lstGuardia.SelectedItem == null) return;
+
+            string itemSeleccionado = lstGuardia.SelectedItem.ToString();
+            string dniSeleccionado = itemSeleccionado.Split('-')[0].Trim();
+
+            Paciente aux = esperaGuardia.inicio;
+            while (aux != null)
+            {
+                if (aux.dni == dniSeleccionado)
+                {
+                    pacienteSeleccionado = aux;
+                    txtDNI.Text = aux.dni;
+                    txtNombre.Text = aux.nombre;
+                    txtApellido.Text = aux.apellido;
+                    cmbEspecialidad.SelectedItem = "Guardia";
+                    break;
+                }
+                aux = aux.siguiente;
+            }
+        }
 
     }
 }

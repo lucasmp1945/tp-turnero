@@ -48,7 +48,6 @@
             optPediatria = new RadioButton();
             optClinica = new RadioButton();
             btnInsertar = new Button();
-            btnModificar = new Button();
             btnEliminar = new Button();
             groupBox1.SuspendLayout();
             SuspendLayout();
@@ -58,7 +57,7 @@
             label1.AutoSize = true;
             label1.Location = new Point(24, 18);
             label1.Name = "label1";
-            label1.Size = new Size(46, 28);
+            label1.Size = new Size(37, 21);
             label1.TabIndex = 0;
             label1.Text = "DNI";
             // 
@@ -67,7 +66,7 @@
             label2.AutoSize = true;
             label2.Location = new Point(235, 18);
             label2.Name = "label2";
-            label2.Size = new Size(86, 28);
+            label2.Size = new Size(67, 21);
             label2.TabIndex = 1;
             label2.Text = "Apellido";
             // 
@@ -76,7 +75,7 @@
             label3.AutoSize = true;
             label3.Location = new Point(472, 18);
             label3.Name = "label3";
-            label3.Size = new Size(85, 28);
+            label3.Size = new Size(68, 21);
             label3.TabIndex = 2;
             label3.Text = "Nombre";
             // 
@@ -85,7 +84,7 @@
             label4.AutoSize = true;
             label4.Location = new Point(684, 18);
             label4.Name = "label4";
-            label4.Size = new Size(120, 28);
+            label4.Size = new Size(95, 21);
             label4.TabIndex = 3;
             label4.Text = "Especialidad";
             // 
@@ -93,21 +92,21 @@
             // 
             txtApellido.Location = new Point(235, 42);
             txtApellido.Name = "txtApellido";
-            txtApellido.Size = new Size(208, 34);
+            txtApellido.Size = new Size(208, 29);
             txtApellido.TabIndex = 4;
             // 
             // txtNombre
             // 
             txtNombre.Location = new Point(472, 42);
             txtNombre.Name = "txtNombre";
-            txtNombre.Size = new Size(179, 34);
+            txtNombre.Size = new Size(179, 29);
             txtNombre.TabIndex = 5;
             // 
             // txtDNI
             // 
             txtDNI.Location = new Point(24, 42);
             txtDNI.Name = "txtDNI";
-            txtDNI.Size = new Size(179, 34);
+            txtDNI.Size = new Size(179, 29);
             txtDNI.TabIndex = 6;
             // 
             // cmbEspecialidad
@@ -118,7 +117,7 @@
             cmbEspecialidad.Items.AddRange(new object[] { "Clínica", "Pediatría", "Guardia" });
             cmbEspecialidad.Location = new Point(684, 42);
             cmbEspecialidad.Name = "cmbEspecialidad";
-            cmbEspecialidad.Size = new Size(211, 36);
+            cmbEspecialidad.Size = new Size(211, 29);
             cmbEspecialidad.TabIndex = 7;
             // 
             // label5
@@ -126,7 +125,7 @@
             label5.AutoSize = true;
             label5.Location = new Point(28, 145);
             label5.Name = "label5";
-            label5.Size = new Size(131, 28);
+            label5.Size = new Size(106, 21);
             label5.TabIndex = 8;
             label5.Text = "Espera Clínica";
             // 
@@ -135,7 +134,7 @@
             label6.AutoSize = true;
             label6.Location = new Point(325, 145);
             label6.Name = "label6";
-            label6.Size = new Size(140, 28);
+            label6.Size = new Size(112, 21);
             label6.TabIndex = 9;
             label6.Text = "Espera Peditría";
             // 
@@ -144,36 +143,39 @@
             label7.AutoSize = true;
             label7.Location = new Point(620, 145);
             label7.Name = "label7";
-            label7.Size = new Size(143, 28);
+            label7.Size = new Size(115, 21);
             label7.TabIndex = 10;
             label7.Text = "Espera Guardia";
             // 
             // lstClinica
             // 
             lstClinica.FormattingEnabled = true;
-            lstClinica.ItemHeight = 28;
+            lstClinica.ItemHeight = 21;
             lstClinica.Location = new Point(28, 169);
             lstClinica.Name = "lstClinica";
-            lstClinica.Size = new Size(275, 312);
+            lstClinica.Size = new Size(275, 298);
             lstClinica.TabIndex = 11;
+            lstClinica.DoubleClick += lstClinica_DoubleClick;
             // 
             // lstPediatria
             // 
             lstPediatria.FormattingEnabled = true;
-            lstPediatria.ItemHeight = 28;
+            lstPediatria.ItemHeight = 21;
             lstPediatria.Location = new Point(325, 169);
             lstPediatria.Name = "lstPediatria";
-            lstPediatria.Size = new Size(275, 312);
+            lstPediatria.Size = new Size(275, 298);
             lstPediatria.TabIndex = 12;
+            lstPediatria.DoubleClick += lstPediatria_DoubleClick;
             // 
             // lstGuardia
             // 
             lstGuardia.FormattingEnabled = true;
-            lstGuardia.ItemHeight = 28;
+            lstGuardia.ItemHeight = 21;
             lstGuardia.Location = new Point(620, 169);
             lstGuardia.Name = "lstGuardia";
-            lstGuardia.Size = new Size(275, 312);
+            lstGuardia.Size = new Size(275, 298);
             lstGuardia.TabIndex = 13;
+            lstGuardia.DoubleClick += lstGuardia_DoubleClick;
             // 
             // groupBox1
             // 
@@ -206,7 +208,7 @@
             optGuardia.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
             optGuardia.Location = new Point(366, 42);
             optGuardia.Name = "optGuardia";
-            optGuardia.Size = new Size(142, 45);
+            optGuardia.Size = new Size(114, 36);
             optGuardia.TabIndex = 2;
             optGuardia.TabStop = true;
             optGuardia.Text = "Guardia";
@@ -218,7 +220,7 @@
             optPediatria.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
             optPediatria.Location = new Point(187, 42);
             optPediatria.Name = "optPediatria";
-            optPediatria.Size = new Size(153, 45);
+            optPediatria.Size = new Size(123, 36);
             optPediatria.TabIndex = 1;
             optPediatria.TabStop = true;
             optPediatria.Text = "Pediatría";
@@ -231,7 +233,7 @@
             optClinica.Font = new Font("Segoe UI", 18F, FontStyle.Regular, GraphicsUnit.Point);
             optClinica.Location = new Point(26, 42);
             optClinica.Name = "optClinica";
-            optClinica.Size = new Size(125, 45);
+            optClinica.Size = new Size(102, 36);
             optClinica.TabIndex = 0;
             optClinica.TabStop = true;
             optClinica.Text = "Clínica";
@@ -249,36 +251,25 @@
             btnInsertar.UseVisualStyleBackColor = false;
             btnInsertar.Click += btnInsertar_Click;
             // 
-            // btnModificar
-            // 
-            btnModificar.BackColor = Color.White;
-            btnModificar.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            btnModificar.Location = new Point(535, 81);
-            btnModificar.Name = "btnModificar";
-            btnModificar.Size = new Size(132, 37);
-            btnModificar.TabIndex = 16;
-            btnModificar.Text = "MODIFICAR";
-            btnModificar.UseVisualStyleBackColor = false;
-            // 
             // btnEliminar
             // 
             btnEliminar.BackColor = Color.White;
             btnEliminar.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point);
-            btnEliminar.Location = new Point(388, 82);
+            btnEliminar.Location = new Point(522, 82);
             btnEliminar.Name = "btnEliminar";
             btnEliminar.Size = new Size(132, 37);
             btnEliminar.TabIndex = 17;
             btnEliminar.Text = "ELIMINAR";
             btnEliminar.UseVisualStyleBackColor = false;
+            btnEliminar.Click += btnEliminar_Click;
             // 
             // frmPrincipal
             // 
-            AutoScaleDimensions = new SizeF(11F, 28F);
+            AutoScaleDimensions = new SizeF(9F, 21F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.Teal;
             ClientSize = new Size(926, 629);
             Controls.Add(btnEliminar);
-            Controls.Add(btnModificar);
             Controls.Add(btnInsertar);
             Controls.Add(groupBox1);
             Controls.Add(lstGuardia);
@@ -327,7 +318,6 @@
         private RadioButton optPediatria;
         private RadioButton optClinica;
         private Button btnInsertar;
-        private Button btnModificar;
         private Button btnEliminar;
     }
 }

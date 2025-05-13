@@ -11,7 +11,7 @@ namespace IE1
         public string dni;
         public string nombre;
         public string apellido;
-        public bool vigente;
+        public string estado;
         public Paciente siguiente;
 
         public Paciente(string dni, string nombre, string apellido)
