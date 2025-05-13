@@ -26,29 +26,24 @@ namespace IE1
             lblDNI.Text = llamado.dni;
         }
 
-        public void mostrarProximos(List<string> listaPacientes)
+        public void mostrarProximos(List<string> lista)
         {
+            MessageBox.Show("fun");
+
             lstProximos.Items.Clear();
 
-            if (listaPacientes == null)
+            if (lista.Count == 0)
             {
-                lstProximos.Items.Add("No hay pacientes");
-            }
-            else
-            {
-                Paciente aux = null;
-                while (aux != null)
-                {
-                    lstProximos.Items.Add($"{aux.dni} - {aux.nombre} {aux.apellido}");
-                    aux = aux.siguiente;
-                }
+                lstProximos.Items.Add("No hay más pacientes.");
+                return;
             }
 
-            for (int i = 1; i < listaPacientes.Count; i++)
+            foreach (string item in lista)
             {
-                lstProximos.Items.Add(listaPacientes[i]);
+                lstProximos.Items.Add(item);
             }
         }
+
 
 
         public void mostrarConsultario()

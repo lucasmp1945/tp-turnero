@@ -42,14 +42,17 @@ namespace IE1
                 case "Clínica":
                     esperaClinicaMedica.Insertar(nuevo.dni, nuevo.nombre, nuevo.apellido);
                     esperaClinicaMedica.Listar(lstClinica);
+                    backup();
                     break;
                 case "Pediatría":
                     esperaPediatria.Insertar(nuevo.dni, nuevo.nombre, nuevo.apellido);
                     esperaPediatria.Listar(lstPediatria);
+                    backup();
                     break;
                 case "Guardia":
                     esperaGuardia.Insertar(nuevo.dni, nuevo.nombre, nuevo.apellido);
                     esperaGuardia.Listar(lstGuardia);
+                    backup();
                     break;
                 default:
                     MessageBox.Show("Especialidad no reconocida.");
@@ -95,6 +98,8 @@ namespace IE1
                     visorClinica.llamaPaciente(esperaClinicaMedica.inicio);
                     esperaClinicaMedica.Eliminar();
                     esperaClinicaMedica.Listar(lstClinica);
+
+
                     backup();
                 }
                 else
@@ -110,6 +115,8 @@ namespace IE1
                     esperaPediatria.Eliminar();
                     esperaPediatria.Listar(lstPediatria);
                     backup();
+                    List<string> lista = esperaPediatria.devolverRegistros(); // obtiene el resto
+                    visorPediatria.mostrarProximos(lista); // se los pasa al visor
 
                 }
                 else

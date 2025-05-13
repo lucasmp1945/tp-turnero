@@ -53,7 +53,7 @@ namespace IE1
 
             while (aux != null)
             {
-                string registro = $"{aux.dni} - {aux.nombre} {aux.apellido}";
+                string registro = aux.dni + "," + aux.nombre + "," + aux.apellido;
                 lista.Add(registro);
                 aux = aux.siguiente;
             }
